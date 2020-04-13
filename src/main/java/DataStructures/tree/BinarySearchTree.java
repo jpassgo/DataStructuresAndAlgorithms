@@ -12,30 +12,63 @@ public class BinarySearchTree {
                 .boxed()
                 .map(Node::new)
                 .forEach(bst::insert);
+        Node node = new Node(5);
+        bst.insert(node);
         System.out.println(bst.root);
+        bst.remove(node);
+        System.out.println(bst);
+
     }
 
-    void insert(Node next) {
-        recursiveInsert(this.root, next);
+    void insert(Node node) {
+        recursiveInsert(this.root, node);
     }
 
-    void recursiveInsert(Node current, Node next) {
+    void recursiveInsert(Node current, Node node) {
         if(root == null) {
-           root = next;
-        } else if(next.lessThan(current)) {
+           root = node;
+        } else if(node.isLessThan(current)) {
             if(current.left != null) {
-                recursiveInsert(current.left, next);
+                recursiveInsert(current.left, node);
             } else {
-                current.left = next;
-                next.parent = current;
+                current.left = node;
+                node.parent = current;
             }
-        } else if(next.greaterThan(current)) {
+        } else if(node.isGreaterThan(current)) {
             if(current.right != null) {
-                recursiveInsert(current.right, next);
+                recursiveInsert(current.right, node);
             } else {
-                current.right = next;
-                next.parent = current;
+                current.right = node;
+                node.parent = current;
             }
+        }
+    }
+
+    void remove(Node node) { recursiveRemove(this.root, node); }
+
+    void recursiveRemove(Node current, Node node) {
+        if(node.isEqualTo(current)) {
+            if(current.left != null) {
+                current.left.parent = current.parent;
+                current.parent.left = current.left;
+            }
+            if(current.right != null) {
+                current.right.parent = current.left;
+                current.left.right = current.right;
+            }
+            if(current.left == null && current.right == null) {
+                if(node.isEqualTo(current.parent.left)) {
+                    current.parent.left = null;
+                } else {
+                    current.parent.right = null;
+                }
+            }
+            current = null;
+        }
+        if(current != null && node.isLessThan(current)) {
+            recursiveRemove(current.left, node);
+        } else if(current != null && node.isGreaterThan(current)) {
+            recursiveRemove(current.right, node);
         }
     }
 }
