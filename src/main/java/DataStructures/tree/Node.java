@@ -23,23 +23,23 @@ public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
         return this.value.compareTo(node.getValue());
     }
 
-    public boolean equalTo(Node<T> node) {
+    public boolean isEqualTo(Node<T> node) {
         return compareTo(node) == 0;
     }
 
-    public boolean lessThan(Node<T> node) {
+    public boolean isLessThan(Node<T> node) {
         return compareTo(node) < 0;
     }
 
-    public boolean lessThanOrEqualTo(Node<T> node) {
+    public boolean isLessThanOrEqualTo(Node<T> node) {
         return compareTo(node) <= 0;
     }
 
-    public boolean greaterThan(Node<T> node) {
+    public boolean isGreaterThan(Node<T> node) {
         return compareTo(node) > 0;
     }
 
-    public boolean greaterThanOrEqualTo(Node<T> node) {
+    public boolean isGreaterThanOrEqualTo(Node<T> node) {
         return compareTo(node) >= 0;
     }
 }
