@@ -8,6 +8,14 @@ public class HeapSort {
         for(int item : array) System.out.print(String.format("%s ", item));
     }
 
+    private <T extends Comparable> void buildMaxHeap(T[] array) {
+        int length = array.length - 1;
+
+        for(int i = length/2; i > 0; i--) {
+            heapify(array, i);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     private <T extends Comparable> void heapify(T[] array, int index) {
         int max = index;
